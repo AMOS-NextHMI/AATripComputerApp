@@ -3,6 +3,7 @@
           package="com.example.carapibasics">
 
     <uses-permission android:name="android.car.permission.CAR_SPEED" />
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
 
     <application
             android:allowBackup="true"

@@ -1,6 +1,7 @@
 package com.example.carapibasics
 
 import android.car.Car
+import android.car.hardware.CarSensorEvent
 import android.car.hardware.CarSensorManager
 import android.content.ComponentName
 import android.content.ServiceConnection
@@ -10,11 +11,17 @@ import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.widget.TextView
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var car : Car
-    private val permissions = arrayOf(Car.PERMISSION_SPEED)
+    private val permissions = arrayOf(Car.PERMISSION_SPEED, Car.PERMISSION_POWERTRAIN)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +33,14 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        if(checkSelfPermission(permissions[0]) == PackageManager.PERMISSION_GRANTED) {
+        var allPermissionsGranted = true
+        for (perm in permissions) {
+            if (checkSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) {
+                allPermissionsGranted = false
+                break
+            }
+        }
+        if(allPermissionsGranted) {
             if (!car.isConnected && !car.isConnecting) {
                 car.connect()
             }
@@ -65,25 +79,79 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onCarServiceReady() {
-        watchSpeedSensor()
+        val sensorManager = car.getCarManager(Car.SENSOR_SERVICE) as CarSensorManager
+        watchSpeedSensor(sensorManager)
+        watchGearSensor(sensorManager)
+        //watchSpeedMilage(sensorManager)
+        //watchOilLevel(sensorManager)
+
     }
 
-    private fun watchSpeedSensor() {
+    private fun watchGearSensor(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+        { carSensorEvent ->
 
-        val sensorManager = car.getCarManager(Car.SENSOR_SERVICE) as CarSensorManager
+           Log.i("yoyo", carSensorEvent.intValues[0].toString())
 
+            var gearTextView = findViewById<TextView>(R.id.gearTextView)
+
+
+            when (carSensorEvent.intValues[0]) {
+                CarSensorEvent.GEAR_DRIVE -> gearTextView.text = "Gear: D"
+                CarSensorEvent.GEAR_NEUTRAL -> gearTextView.text = "Gear: N"
+                CarSensorEvent.GEAR_REVERSE -> gearTextView.text = "Gear: R"
+                CarSensorEvent.GEAR_PARK -> gearTextView.text = "Gear: P"
+                else -> { // Note the block
+                    Log.i("gear" ,"Gear not implemented")
+                }
+            }
+
+
+
+
+
+        },
+        CarSensorManager.SENSOR_TYPE_GEAR,
+        CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+
+
+    }
+
+    private fun watchSpeedMilage(sensorManager: CarSensorManager) {
+    // TODO
+    }
+
+
+    private fun watchSpeedSensor(sensorManager: CarSensorManager ) {
         sensorManager.registerListener(
             { carSensorEvent ->
-                Log.d("MainActivity", "Speed: ${carSensorEvent.floatValues[0]}")
+
                 var speedTextView = findViewById<TextView>(R.id.speedTextView)
                 speedTextView.text = "Speed: " + carSensorEvent.floatValues[0].toString() + "km/h"
 
-                var gear = findViewById<TextView>(R.id.gearTextView)
-                print("this is my event ")
-                print(carSensorEvent)
+
 
             },
             CarSensorManager.SENSOR_TYPE_CAR_SPEED,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+    }
+
+    private fun watchOilLevel(sensorManager: CarSensorManager) {
+
+        sensorManager.registerListener(
+            { carSensorEvent ->
+                println(carSensorEvent.toString())
+                //var engineOilTextView = findViewById<TextView>(R.id.engineOilTextView)
+                //engineOilTextView.text = "Engine Oil Level: " + carSensorEvent.toString();
+
+
+
+            },
+            CarSensorManager.SENSOR_TYPE_ENGINE_OIL_LEVEL,
             CarSensorManager.SENSOR_RATE_NORMAL
 
 
@@ -92,13 +160,28 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun checkIfPermissionsGranted(grantResults: IntArray): Boolean {
+        for (grantResult in grantResults) {
+            if (grantResult == PackageManager.PERMISSION_DENIED) {
+                return false
+
+            }
+        }
+        return true
+
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (permissions[0] == Car.PERMISSION_SPEED && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            if (!car.isConnected && !car.isConnecting) {
-                car.connect()
-            }
+        var allPermissionsGranted = checkIfPermissionsGranted(grantResults)
+
+
+
+        if (allPermissionsGranted && !car.isConnected && !car.isConnecting) {
+            car.connect()
         }
+
+
     }
 }
