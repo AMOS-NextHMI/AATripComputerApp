@@ -11,9 +11,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.widget.TextView
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
 
 
 
@@ -45,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                 car.connect()
             }
         } else {
+            Log.i("permission", "requesting permission")
             requestPermissions(permissions, 0)
         }
 
@@ -82,16 +81,41 @@ class MainActivity : AppCompatActivity() {
         val sensorManager = car.getCarManager(Car.SENSOR_SERVICE) as CarSensorManager
         watchSpeedSensor(sensorManager)
         watchGearSensor(sensorManager)
+        //watchFuelLevel(sensorManager)
+
         //watchSpeedMilage(sensorManager)
         //watchOilLevel(sensorManager)
 
     }
 
+    private fun watchFuelLevel(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+            { carSensorEvent ->
+                Log.i("fuel", carSensorEvent.floatValues[0].toString())
+                Log.i("fuel", carSensorEvent.intValues[0].toString())
+
+
+
+
+
+
+
+
+
+            },
+            CarSensorManager.SENSOR_TYPE_FUEL_LEVEL,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+
+    }
+
+
     private fun watchGearSensor(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
         { carSensorEvent ->
 
-           Log.i("yoyo", carSensorEvent.intValues[0].toString())
+
 
             var gearTextView = findViewById<TextView>(R.id.gearTextView)
 
