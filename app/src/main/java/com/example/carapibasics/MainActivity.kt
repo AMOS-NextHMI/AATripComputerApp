@@ -19,7 +19,7 @@ import android.widget.TextView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var car : Car
-    private val permissions = arrayOf(Car.PERMISSION_SPEED, Car.PERMISSION_POWERTRAIN)
+    private val permissions = arrayOf(Car.PERMISSION_SPEED, Car.PERMISSION_POWERTRAIN, Car.PERMISSION_MILEAGE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             Log.i("permission", "requesting permission")
             requestPermissions(permissions, 0)
         }
-
+        // TODO: reregister listeners:  https://developer.android.com/reference/android/hardware/SensorManager
     }
 
     override fun onPause() {
@@ -55,6 +55,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         super.onPause()
+
+        // TODO: Unregister listeners on pause: https://developer.android.com/reference/android/hardware/SensorManager
     }
 
     private fun initCar() {
@@ -83,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         watchGearSensor(sensorManager)
         //watchFuelLevel(sensorManager)
 
-        //watchSpeedMilage(sensorManager)
+        watchSpeedMileage(sensorManager)
         //watchOilLevel(sensorManager)
 
     }
@@ -93,19 +95,9 @@ class MainActivity : AppCompatActivity() {
             { carSensorEvent ->
                 Log.i("fuel", carSensorEvent.floatValues[0].toString())
                 Log.i("fuel", carSensorEvent.intValues[0].toString())
-
-
-
-
-
-
-
-
-
             },
             CarSensorManager.SENSOR_TYPE_FUEL_LEVEL,
             CarSensorManager.SENSOR_RATE_NORMAL
-
         )
 
     }
@@ -143,8 +135,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun watchSpeedMilage(sensorManager: CarSensorManager) {
-    // TODO
+    private fun watchSpeedMileage(sensorManager: CarSensorManager) {
+    // TODO: display odometer value.
+
+        sensorManager.registerListener(
+            { carSensorEvent ->
+                var odometerTextView = findViewById<TextView>(R.id.odometerTextView)
+                odometerTextView.text = "Mileage: " + carSensorEvent.floatValues[0].toString() + "km"
+            },
+            CarSensorManager.SENSOR_TYPE_ODOMETER,
+            CarSensorManager.SENSOR_RATE_NORMAL
+        )
+
     }
 
 
