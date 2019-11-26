@@ -19,7 +19,7 @@ import android.widget.TextView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var car : Car
-    private val permissions = arrayOf(Car.PERMISSION_SPEED, Car.PERMISSION_POWERTRAIN)
+    private val permissions = arrayOf(Car.PERMISSION_SPEED, Car.PERMISSION_POWERTRAIN, Car.PERMISSION_ENERGY)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,18 +79,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun onCarServiceReady() {
         val sensorManager = car.getCarManager(Car.SENSOR_SERVICE) as CarSensorManager
-        val supportedSensors = sensorManager.supportedSensors
 
-
-        // TODO check Wheel Tick
-        // TODO check speed of vehicle
-
-
-
+        Log.i("support", sensorManager.supportedSensors.toList().toString())
+        /// watch all sensors supported by sensor service
         watchSpeedSensor(sensorManager)
         watchGearSensor(sensorManager)
         watchParkingBreak(sensorManager)
         watchIgnitionState(sensorManager)
+        watchFuelLevel(sensorManager)
+
+
+        // TODO ,291504905,291504908
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         //watchFuelLevel(sensorManager)
@@ -99,6 +110,8 @@ class MainActivity : AppCompatActivity() {
         //watchOilLevel(sensorManager)
 
     }
+
+
 
     private fun watchIgnitionState(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
@@ -150,9 +163,7 @@ class MainActivity : AppCompatActivity() {
     private fun watchFuelLevel(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
             { carSensorEvent ->
-                Log.i("fuel", carSensorEvent.floatValues[0].toString())
-                Log.i("fuel", carSensorEvent.intValues[0].toString())
-
+                Log.i("fuel", carSensorEvent.floatValues[0].toString() + "milliliters")
 
             },
             CarSensorManager.SENSOR_TYPE_FUEL_LEVEL,
