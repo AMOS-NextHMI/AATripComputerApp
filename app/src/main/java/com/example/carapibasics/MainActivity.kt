@@ -82,7 +82,6 @@ class MainActivity : AppCompatActivity() {
         val supportedSensors = sensorManager.supportedSensors
 
 
-        // TODO check Ignition State
         // TODO check Wheel Tick
         // TODO check speed of vehicle
 
@@ -91,10 +90,38 @@ class MainActivity : AppCompatActivity() {
         watchSpeedSensor(sensorManager)
         watchGearSensor(sensorManager)
         watchParkingBreak(sensorManager)
+        watchIgnitionState(sensorManager)
+
+
         //watchFuelLevel(sensorManager)
 
         //watchSpeedMilage(sensorManager)
         //watchOilLevel(sensorManager)
+
+    }
+
+    private fun watchIgnitionState(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+            { carSensorEvent ->
+
+                when (carSensorEvent.intValues[0]) {
+                    CarSensorEvent.IGNITION_STATE_ACC -> Log.i("igniton", "IGNITION_STATE_ACC")
+                    CarSensorEvent.IGNITION_STATE_LOCK -> Log.i("igniton", "IGNITION_STATE_LOCK")
+                    CarSensorEvent.IGNITION_STATE_OFF -> Log.i("igniton", "IGNITION_STATE_OFF")
+                    CarSensorEvent.IGNITION_STATE_ON -> Log.i("igniton", "IGNITION_STATE_ON")
+                    CarSensorEvent.IGNITION_STATE_START -> Log.i("igniton", "IGNITION_STATE_START")
+                    CarSensorEvent.IGNITION_STATE_UNDEFINED -> Log.i("igniton", "IGNITION_STATE_UNDEFINED")
+                    else -> { // Note the block
+                        Log.i("gear" ,"Gear not implemented")
+                    }
+                }
+
+            },
+            CarSensorManager.SENSOR_TYPE_IGNITION_STATE,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+
 
     }
 
