@@ -79,12 +79,44 @@ class MainActivity : AppCompatActivity() {
 
     private fun onCarServiceReady() {
         val sensorManager = car.getCarManager(Car.SENSOR_SERVICE) as CarSensorManager
+        val supportedSensors = sensorManager.supportedSensors
+
+
+        // TODO check Ignition State
+        // TODO check Wheel Tick
+        // TODO check speed of vehicle
+
+
+
         watchSpeedSensor(sensorManager)
         watchGearSensor(sensorManager)
+        watchParkingBreak(sensorManager)
         //watchFuelLevel(sensorManager)
 
         //watchSpeedMilage(sensorManager)
         //watchOilLevel(sensorManager)
+
+    }
+
+    private fun watchParkingBreak(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+            { carSensorEvent ->
+                val parkingBreakOn: Boolean = carSensorEvent.intValues[0] == 1
+                if (parkingBreakOn) {
+                    Log.i("break", "on")
+
+                }else {
+                    Log.i("break", "off")
+                }
+
+
+
+            },
+            CarSensorManager.SENSOR_TYPE_PARKING_BRAKE,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+
 
     }
 
@@ -93,13 +125,6 @@ class MainActivity : AppCompatActivity() {
             { carSensorEvent ->
                 Log.i("fuel", carSensorEvent.floatValues[0].toString())
                 Log.i("fuel", carSensorEvent.intValues[0].toString())
-
-
-
-
-
-
-
 
 
             },
