@@ -87,9 +87,10 @@ class MainActivity : AppCompatActivity() {
         watchParkingBreak(sensorManager)
         watchIgnitionState(sensorManager)
         watchFuelLevel(sensorManager)
+        watchChargingRate(sensorManager)
+        watchBatteryLevel(sensorManager) //Battery level not yet supported check 291504905 in https://developer.android.com/reference/android/car/hardware/CarSensorManager
 
-
-        // TODO ,291504905,291504908
+        // TODO ,,291504908
 
 
 
@@ -111,6 +112,39 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun watchChargingRate(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+            { carSensorEvent ->
+                Log.i("chargeRate", carSensorEvent.floatValues[0].toString() + " mW")
+
+            },
+            CarSensorManager.SENSOR_TYPE_EV_BATTERY_CHARGE_RATE,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+
+
+
+    }
+
+
+    private fun watchBatteryLevel(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+            { carSensorEvent ->
+
+               val batteryLevelInWH = carSensorEvent.floatValues[0]
+                Log.i("battery level in WH",  batteryLevelInWH.toString() + "watts per hour")
+
+
+
+            },
+            CarSensorManager.SENSOR_TYPE_EV_BATTERY_LEVEL,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+
+
+    }
 
 
     private fun watchIgnitionState(sensorManager: CarSensorManager) {
