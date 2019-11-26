@@ -1,6 +1,7 @@
 package com.example.carapibasics
 
 import android.car.Car
+import android.car.CarInfoManager
 import android.car.hardware.CarSensorEvent
 import android.car.hardware.CarSensorManager
 import android.content.ComponentName
@@ -88,10 +89,8 @@ class MainActivity : AppCompatActivity() {
         watchIgnitionState(sensorManager)
         watchFuelLevel(sensorManager)
         watchChargingRate(sensorManager)
-        watchBatteryLevel(sensorManager) //Battery level not yet supported check 291504905 in https://developer.android.com/reference/android/car/hardware/CarSensorManager
-
-        // TODO ,,291504908
-
+        watchBatteryLevel(sensorManager)
+        //watchRpm(sensorManager) Still doesnt work requires engine permissions
 
 
 
@@ -105,10 +104,27 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        //watchFuelLevel(sensorManager)
+
+
+
+
+
 
         //watchSpeedMilage(sensorManager)
         //watchOilLevel(sensorManager)
+
+    }
+
+    private fun watchRpm(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+            { carSensorEvent ->
+                Log.i("rpm", carSensorEvent.floatValues[0].toString() + " rpm")
+
+            },
+            CarSensorManager.SENSOR_TYPE_RPM,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
 
     }
 
