@@ -1,6 +1,7 @@
 package com.example.carapibasics
 
 import android.car.Car
+import android.car.CarInfoManager
 import android.car.hardware.CarSensorEvent
 import android.car.hardware.CarSensorManager
 import android.content.ComponentName
@@ -19,7 +20,7 @@ import android.widget.TextView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var car : Car
-    private val permissions = arrayOf(Car.PERMISSION_SPEED, Car.PERMISSION_POWERTRAIN)
+    private val permissions = arrayOf(Car.PERMISSION_SPEED, Car.PERMISSION_POWERTRAIN, Car.PERMISSION_ENERGY)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,22 +80,111 @@ class MainActivity : AppCompatActivity() {
 
     private fun onCarServiceReady() {
         val sensorManager = car.getCarManager(Car.SENSOR_SERVICE) as CarSensorManager
-        val supportedSensors = sensorManager.supportedSensors
 
-
-        // TODO check Ignition State
-        // TODO check Wheel Tick
-        // TODO check speed of vehicle
-
-
-
+        Log.i("support", sensorManager.supportedSensors.toList().toString())
+        /// watch all sensors supported by sensor service
         watchSpeedSensor(sensorManager)
         watchGearSensor(sensorManager)
         watchParkingBreak(sensorManager)
-        //watchFuelLevel(sensorManager)
+        watchIgnitionState(sensorManager)
+        watchFuelLevel(sensorManager)
+        watchChargingRate(sensorManager)
+        watchBatteryLevel(sensorManager)
+        //watchRpm(sensorManager) Still doesnt work requires engine permissions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //watchSpeedMilage(sensorManager)
         //watchOilLevel(sensorManager)
+
+    }
+
+    private fun watchRpm(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+            { carSensorEvent ->
+                Log.i("rpm", carSensorEvent.floatValues[0].toString() + " rpm")
+
+            },
+            CarSensorManager.SENSOR_TYPE_RPM,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+
+    }
+
+    private fun watchChargingRate(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+            { carSensorEvent ->
+                Log.i("chargeRate", carSensorEvent.floatValues[0].toString() + " mW")
+
+            },
+            CarSensorManager.SENSOR_TYPE_EV_BATTERY_CHARGE_RATE,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+
+
+
+    }
+
+
+    private fun watchBatteryLevel(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+            { carSensorEvent ->
+
+               val batteryLevelInWH = carSensorEvent.floatValues[0]
+                Log.i("battery level in WH",  batteryLevelInWH.toString() + "watts per hour")
+
+
+
+            },
+            CarSensorManager.SENSOR_TYPE_EV_BATTERY_LEVEL,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+
+
+    }
+
+
+    private fun watchIgnitionState(sensorManager: CarSensorManager) {
+        sensorManager.registerListener(
+            { carSensorEvent ->
+
+                when (carSensorEvent.intValues[0]) {
+                    CarSensorEvent.IGNITION_STATE_ACC -> Log.i("igniton", "IGNITION_STATE_ACC")
+                    CarSensorEvent.IGNITION_STATE_LOCK -> Log.i("igniton", "IGNITION_STATE_LOCK")
+                    CarSensorEvent.IGNITION_STATE_OFF -> Log.i("igniton", "IGNITION_STATE_OFF")
+                    CarSensorEvent.IGNITION_STATE_ON -> Log.i("igniton", "IGNITION_STATE_ON")
+                    CarSensorEvent.IGNITION_STATE_START -> Log.i("igniton", "IGNITION_STATE_START")
+                    CarSensorEvent.IGNITION_STATE_UNDEFINED -> Log.i("igniton", "IGNITION_STATE_UNDEFINED")
+                    else -> { // Note the block
+                        Log.i("gear" ,"Gear not implemented")
+                    }
+                }
+
+            },
+            CarSensorManager.SENSOR_TYPE_IGNITION_STATE,
+            CarSensorManager.SENSOR_RATE_NORMAL
+
+        )
+
 
     }
 
@@ -123,9 +213,7 @@ class MainActivity : AppCompatActivity() {
     private fun watchFuelLevel(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
             { carSensorEvent ->
-                Log.i("fuel", carSensorEvent.floatValues[0].toString())
-                Log.i("fuel", carSensorEvent.intValues[0].toString())
-
+                Log.i("fuel", carSensorEvent.floatValues[0].toString() + "milliliters")
 
             },
             CarSensorManager.SENSOR_TYPE_FUEL_LEVEL,
