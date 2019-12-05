@@ -1,5 +1,6 @@
 package com.example.carapibasics
 
+import android.app.Activity
 import android.car.Car
 import android.car.CarInfoManager
 import android.car.hardware.CarSensorEvent
@@ -17,7 +18,7 @@ import android.widget.TextView
 
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
 
     private lateinit var car : Car
     private val permissions = arrayOf(Car.PERMISSION_SPEED, Car.PERMISSION_POWERTRAIN, Car.PERMISSION_ENERGY)
