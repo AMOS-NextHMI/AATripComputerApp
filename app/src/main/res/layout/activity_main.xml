@@ -49,7 +49,7 @@
                     android:layout_gravity="center"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#234568"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold|italic" />
 
                 <TextView
@@ -59,7 +59,7 @@
                     android:layout_gravity="center"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#234568"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold|italic" />
 
                 <TextView
@@ -69,7 +69,7 @@
                     android:layout_gravity="center"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#234568"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold|italic" />
 
                 <TextView
@@ -79,7 +79,7 @@
                     android:layout_gravity="center"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#234568"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold|italic" />
 
                 <TextView
@@ -89,7 +89,7 @@
                     android:layout_gravity="center"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#234568"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold|italic" />
 
 
@@ -116,7 +116,7 @@
                     android:layout_gravity="center"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#234568"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold|italic" />
 
             </LinearLayout>
@@ -141,7 +141,7 @@
                     android:layout_gravity="center"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#234568"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold|italic" />
 
 
