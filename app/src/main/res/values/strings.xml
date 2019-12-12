@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CarApiBasics</string>
+    <string name="app_name">Trip Computer</string>
     <string name="car_health">Car Health</string>
     <string name="car_sensor_data">Car Sensor Data</string>
     <string name="your_current_trip">Your Current Trip</string>

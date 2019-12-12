@@ -1,4 +1,4 @@
-package com.example.carapibasics
+package com.example.tripcomputer
 
 import android.app.Activity
 import android.car.Car
@@ -15,18 +15,15 @@ import android.util.Log
 import android.widget.TextView
 
 
-
-
-
 class MainActivity : Activity() {
 
-    private lateinit var car : Car
+    private lateinit var car: Car
     private val permissions = arrayOf(Car.PERMISSION_SPEED, Car.PERMISSION_POWERTRAIN, Car.PERMISSION_ENERGY)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d("TAG", "This is a dummy")
+        Log.d("AATripComputerApp", "The activity has been created.")
         initCar()
     }
 
@@ -40,7 +37,7 @@ class MainActivity : Activity() {
                 break
             }
         }
-        if(allPermissionsGranted) {
+        if (allPermissionsGranted) {
             if (!car.isConnected && !car.isConnecting) {
                 car.connect()
             }
@@ -52,7 +49,7 @@ class MainActivity : Activity() {
     }
 
     override fun onPause() {
-        if(car.isConnected) {
+        if (car.isConnected) {
             car.disconnect()
         }
 
@@ -64,7 +61,7 @@ class MainActivity : Activity() {
             return
         }
 
-        if(::car.isInitialized) {
+        if (::car.isInitialized) {
             return
         }
 
@@ -94,23 +91,6 @@ class MainActivity : Activity() {
         //watchRpm(sensorManager) Still doesnt work requires engine permissions
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //watchSpeedMilage(sensorManager)
         //watchOilLevel(sensorManager)
 
@@ -118,12 +98,12 @@ class MainActivity : Activity() {
 
     private fun watchRpm(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
-            { carSensorEvent ->
-                Log.i("rpm", carSensorEvent.floatValues[0].toString() + " rpm")
+                { carSensorEvent ->
+                    Log.i("rpm", carSensorEvent.floatValues[0].toString() + " rpm")
 
-            },
-            CarSensorManager.SENSOR_TYPE_RPM,
-            CarSensorManager.SENSOR_RATE_NORMAL
+                },
+                CarSensorManager.SENSOR_TYPE_RPM,
+                CarSensorManager.SENSOR_RATE_NORMAL
 
         )
 
@@ -131,20 +111,19 @@ class MainActivity : Activity() {
 
     private fun watchChargingRate(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
-            { carSensorEvent ->
+                { carSensorEvent ->
 
-                var chargeRateTextView = findViewById<TextView>(R.id.chargeRateTextView)
-                val chargeRate = carSensorEvent.floatValues[0]
+                    var chargeRateTextView = findViewById<TextView>(R.id.chargeRateTextView)
+                    val chargeRate = carSensorEvent.floatValues[0]
 
-                Log.i("chargeRate", chargeRate.toString() + " mW")
-                chargeRateTextView.text = "BatteryLevel: " + chargeRate.toString() + "mW"
+                    Log.i("chargeRate", chargeRate.toString() + " mW")
+                    chargeRateTextView.text = "BatteryLevel: " + chargeRate.toString() + "mW"
 
-            },
-            CarSensorManager.SENSOR_TYPE_EV_BATTERY_CHARGE_RATE,
-            CarSensorManager.SENSOR_RATE_NORMAL
+                },
+                CarSensorManager.SENSOR_TYPE_EV_BATTERY_CHARGE_RATE,
+                CarSensorManager.SENSOR_RATE_NORMAL
 
         )
-
 
 
     }
@@ -152,19 +131,19 @@ class MainActivity : Activity() {
 
     private fun watchBatteryLevel(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
-            { carSensorEvent ->
+                { carSensorEvent ->
 
-                var BatteryLevelTextView = findViewById<TextView>(R.id.BatteryLevelTextView)
-                val batteryLevelInWH = carSensorEvent.floatValues[0]
-
-
-                Log.i("battery level ",  batteryLevelInWH.toString() + "WH")
-                BatteryLevelTextView.text = "BatteryLevel: " + batteryLevelInWH.toString() + "Wh"
+                    var BatteryLevelTextView = findViewById<TextView>(R.id.BatteryLevelTextView)
+                    val batteryLevelInWH = carSensorEvent.floatValues[0]
 
 
-            },
-            CarSensorManager.SENSOR_TYPE_EV_BATTERY_LEVEL,
-            CarSensorManager.SENSOR_RATE_NORMAL
+                    Log.i("battery level ", batteryLevelInWH.toString() + "WH")
+                    BatteryLevelTextView.text = "BatteryLevel: " + batteryLevelInWH.toString() + "Wh"
+
+
+                },
+                CarSensorManager.SENSOR_TYPE_EV_BATTERY_LEVEL,
+                CarSensorManager.SENSOR_RATE_NORMAL
 
         )
 
@@ -174,29 +153,29 @@ class MainActivity : Activity() {
 
     private fun watchIgnitionState(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
-            { carSensorEvent ->
+                { carSensorEvent ->
 
-                var IgnitionTextView = findViewById<TextView>(R.id.IgnitionTextView)
-                var ignition = ""
+                    var IgnitionTextView = findViewById<TextView>(R.id.IgnitionTextView)
+                    var ignition = ""
 
 
 
-                when (carSensorEvent.intValues[0]) {
-                    CarSensorEvent.IGNITION_STATE_ACC -> ignition = "IGNITION_STATE_ACC"
-                    CarSensorEvent.IGNITION_STATE_LOCK -> ignition = "IGNITION_STATE_LOCK"
-                    CarSensorEvent.IGNITION_STATE_OFF -> ignition = "IGNITION_STATE_OFF"
-                    CarSensorEvent.IGNITION_STATE_ON -> ignition = "IGNITION_STATE_ON"
-                    CarSensorEvent.IGNITION_STATE_START -> ignition = "IGNITION_STATE_START"
-                    CarSensorEvent.IGNITION_STATE_UNDEFINED -> ignition = "IGNITION_STATE_UNDEFINED"
-                    else -> { // Note the block
-                        ignition = "Gear not implemented"
+                    when (carSensorEvent.intValues[0]) {
+                        CarSensorEvent.IGNITION_STATE_ACC -> ignition = "IGNITION_STATE_ACC"
+                        CarSensorEvent.IGNITION_STATE_LOCK -> ignition = "IGNITION_STATE_LOCK"
+                        CarSensorEvent.IGNITION_STATE_OFF -> ignition = "IGNITION_STATE_OFF"
+                        CarSensorEvent.IGNITION_STATE_ON -> ignition = "IGNITION_STATE_ON"
+                        CarSensorEvent.IGNITION_STATE_START -> ignition = "IGNITION_STATE_START"
+                        CarSensorEvent.IGNITION_STATE_UNDEFINED -> ignition = "IGNITION_STATE_UNDEFINED"
+                        else -> { // Note the block
+                            ignition = "Gear not implemented"
+                        }
                     }
-                }
-                IgnitionTextView.text = "Ignition Mode: " + ignition
-                Log.i("igniton: ", ignition )
-            },
-            CarSensorManager.SENSOR_TYPE_IGNITION_STATE,
-            CarSensorManager.SENSOR_RATE_NORMAL
+                    IgnitionTextView.text = "Ignition Mode: " + ignition
+                    Log.i("igniton: ", ignition)
+                },
+                CarSensorManager.SENSOR_TYPE_IGNITION_STATE,
+                CarSensorManager.SENSOR_RATE_NORMAL
 
         )
 
@@ -205,26 +184,26 @@ class MainActivity : Activity() {
 
     private fun watchParkingBreak(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
-            { carSensorEvent ->
+                { carSensorEvent ->
 
-                var parkingBreakTextView = findViewById<TextView>(R.id.ParkingBreakTextView )
-                var parkingBreak = ""
+                    var parkingBreakTextView = findViewById<TextView>(R.id.ParkingBreakTextView)
+                    var parkingBreak = ""
 
-                val parkingBreakOn: Boolean = carSensorEvent.intValues[0] == 1
-                if (parkingBreakOn) {
-                    parkingBreak = "on"
+                    val parkingBreakOn: Boolean = carSensorEvent.intValues[0] == 1
+                    if (parkingBreakOn) {
+                        parkingBreak = "on"
 
-                }else {
-                    parkingBreak = "off"
-                }
+                    } else {
+                        parkingBreak = "off"
+                    }
 
 
-                parkingBreakTextView.text = "parkingBreak: " + parkingBreak
-                Log.i("break", parkingBreak)
+                    parkingBreakTextView.text = "parkingBreak: " + parkingBreak
+                    Log.i("break", parkingBreak)
 
-            },
-            CarSensorManager.SENSOR_TYPE_PARKING_BRAKE,
-            CarSensorManager.SENSOR_RATE_NORMAL
+                },
+                CarSensorManager.SENSOR_TYPE_PARKING_BRAKE,
+                CarSensorManager.SENSOR_RATE_NORMAL
 
         )
 
@@ -233,19 +212,19 @@ class MainActivity : Activity() {
 
     private fun watchFuelLevel(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
-            { carSensorEvent ->
+                { carSensorEvent ->
 
-                var fuelTextView = findViewById<TextView>(R.id.FuelTextView  )
-                var fuel = carSensorEvent.floatValues[0].toString() + "milliliters"
+                    var fuelTextView = findViewById<TextView>(R.id.FuelTextView)
+                    var fuel = carSensorEvent.floatValues[0].toString() + "milliliters"
 
 
 
-                Log.i("fuel", fuel)
-                fuelTextView.text = fuel
+                    Log.i("fuel", fuel)
+                    fuelTextView.text = fuel
 
-            },
-            CarSensorManager.SENSOR_TYPE_FUEL_LEVEL,
-            CarSensorManager.SENSOR_RATE_NORMAL
+                },
+                CarSensorManager.SENSOR_TYPE_FUEL_LEVEL,
+                CarSensorManager.SENSOR_RATE_NORMAL
 
         )
 
@@ -254,34 +233,30 @@ class MainActivity : Activity() {
 
     private fun watchGearSensor(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
-        { carSensorEvent ->
+                { carSensorEvent ->
 
 
+                    var gearTextView = findViewById<TextView>(R.id.gearTextView)
+                    var gear = ""
 
-            var gearTextView = findViewById<TextView>(R.id.gearTextView)
-            var gear = ""
+                    when (carSensorEvent.intValues[0]) {
+                        CarSensorEvent.GEAR_DRIVE -> gear = "Gear: D"
+                        CarSensorEvent.GEAR_NEUTRAL -> gear = "Gear: N"
+                        CarSensorEvent.GEAR_REVERSE -> gear = "Gear: R"
+                        CarSensorEvent.GEAR_PARK -> gear = "Gear: P"
+                        else -> { // Note the block
+                            gear = "Gear not implemented"
+                        }
 
-            when (carSensorEvent.intValues[0]) {
-                CarSensorEvent.GEAR_DRIVE -> gear = "Gear: D"
-                CarSensorEvent.GEAR_NEUTRAL -> gear = "Gear: N"
-                CarSensorEvent.GEAR_REVERSE -> gear = "Gear: R"
-                CarSensorEvent.GEAR_PARK -> gear = "Gear: P"
-                else -> { // Note the block
-                    gear = "Gear not implemented"
-                }
+                    }
 
-            }
-
-            gearTextView.text = gear
-            Log.i("gear", gear)
-
+                    gearTextView.text = gear
+                    Log.i("gear", gear)
 
 
-
-
-        },
-        CarSensorManager.SENSOR_TYPE_GEAR,
-        CarSensorManager.SENSOR_RATE_NORMAL
+                },
+                CarSensorManager.SENSOR_TYPE_GEAR,
+                CarSensorManager.SENSOR_RATE_NORMAL
 
         )
 
@@ -289,22 +264,21 @@ class MainActivity : Activity() {
     }
 
     private fun watchSpeedMilage(sensorManager: CarSensorManager) {
-    // TODO
+        // TODO
     }
 
 
-    private fun watchSpeedSensor(sensorManager: CarSensorManager ) {
+    private fun watchSpeedSensor(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
-            { carSensorEvent ->
+                { carSensorEvent ->
 
-                var speedTextView = findViewById<TextView>(R.id.speedTextView)
-                speedTextView.text = "Speed: " + carSensorEvent.floatValues[0].toString() + "km/h"
+                    var speedTextView = findViewById<TextView>(R.id.speedTextView)
+                    speedTextView.text = "Speed: " + carSensorEvent.floatValues[0].toString() + "km/h"
 
 
-
-            },
-            CarSensorManager.SENSOR_TYPE_CAR_SPEED,
-            CarSensorManager.SENSOR_RATE_NORMAL
+                },
+                CarSensorManager.SENSOR_TYPE_CAR_SPEED,
+                CarSensorManager.SENSOR_RATE_NORMAL
 
         )
     }
@@ -312,20 +286,16 @@ class MainActivity : Activity() {
     private fun watchOilLevel(sensorManager: CarSensorManager) {
 
         sensorManager.registerListener(
-            { carSensorEvent ->
-                println(carSensorEvent.toString())
-                var engineOilTextView = findViewById<TextView>(R.id.engineOilTextView)
+                { carSensorEvent ->
+                    println(carSensorEvent.toString())
+                    var engineOilTextView = findViewById<TextView>(R.id.engineOilTextView)
 
-                engineOilTextView.text = "Engine Oil Level: " + carSensorEvent.toString();
-
-
+                    engineOilTextView.text = "Engine Oil Level: " + carSensorEvent.toString();
 
 
-            },
-            CarSensorManager.SENSOR_TYPE_ENGINE_OIL_LEVEL,
-            CarSensorManager.SENSOR_RATE_NORMAL
-
-
+                },
+                CarSensorManager.SENSOR_TYPE_ENGINE_OIL_LEVEL,
+                CarSensorManager.SENSOR_RATE_NORMAL
 
 
         )
