@@ -1,5 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.example.tripcomputer">
+	package="com.example.automotive">
+
+	<uses-permission android:name="android.car.permission.CAR_SPEED" />
+	<uses-permission android:name="android.car.permission.CAR_POWER" />
+	<uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+	<uses-permission android:name="android.car.permission.CAR_ENERGY" />
 
 	<uses-feature
 		android:name="android.hardware.type.automotive"
