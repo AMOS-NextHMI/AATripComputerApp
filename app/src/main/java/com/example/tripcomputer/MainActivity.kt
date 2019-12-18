@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.widget.TextView
+import java.security.Permission
 
 
 class MainActivity : Activity() {
@@ -21,8 +22,7 @@ class MainActivity : Activity() {
         arrayOf(
             Car.PERMISSION_SPEED,
             Car.PERMISSION_POWERTRAIN,
-            Car.PERMISSION_ENERGY,
-            Car.PERMISSION_CAR_POWER
+            Car.PERMISSION_ENERGY//,Car.PERMISSION_CAR_POWER
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +35,11 @@ class MainActivity : Activity() {
     override fun onResume() {
         super.onResume()
 
+
         var allPermissionsGranted = true
         for (perm in permissions) {
             if (checkSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) {
+                Log.d("permission",perm.toString());
                 allPermissionsGranted = false
                 break
             }
@@ -89,7 +91,7 @@ class MainActivity : Activity() {
         watchSpeedSensor(sensorManager)
         watchGearSensor(sensorManager)
         watchParkingBreak(sensorManager)
-        watchIgnitionState(sensorManager)
+//        watchIgnitionState(sensorManager)
         watchFuelLevel(sensorManager)
         watchChargingRate(sensorManager)
         watchBatteryLevel(sensorManager)
@@ -156,36 +158,36 @@ class MainActivity : Activity() {
     }
 
 
-    private fun watchIgnitionState(sensorManager: CarSensorManager) {
-        sensorManager.registerListener(
-            { carSensorEvent ->
-
-                var IgnitionTextView = findViewById<TextView>(R.id.IgnitionTextView)
-                var ignition = ""
-
-
-
-                when (carSensorEvent.intValues[0]) {
-                    CarSensorEvent.IGNITION_STATE_ACC -> ignition = "IGNITION_STATE_ACC"
-                    CarSensorEvent.IGNITION_STATE_LOCK -> ignition = "IGNITION_STATE_LOCK"
-                    CarSensorEvent.IGNITION_STATE_OFF -> ignition = "IGNITION_STATE_OFF"
-                    CarSensorEvent.IGNITION_STATE_ON -> ignition = "IGNITION_STATE_ON"
-                    CarSensorEvent.IGNITION_STATE_START -> ignition = "IGNITION_STATE_START"
-                    CarSensorEvent.IGNITION_STATE_UNDEFINED -> ignition = "IGNITION_STATE_UNDEFINED"
-                    else -> { // Note the block
-                        ignition = "Gear not implemented"
-                    }
-                }
-                IgnitionTextView.text = "Ignition Mode: " + ignition
-                Log.i("igniton: ", ignition)
-            },
-            CarSensorManager.SENSOR_TYPE_IGNITION_STATE,
-            CarSensorManager.SENSOR_RATE_NORMAL
-
-        )
-
-
-    }
+//    private fun watchIgnitionState(sensorManager: CarSensorManager) {
+//        sensorManager.registerListener(
+//            { carSensorEvent ->
+//
+//                var IgnitionTextView = findViewById<TextView>(R.id.IgnitionTextView)
+//                var ignition = ""
+//
+//
+//
+//                when (carSensorEvent.intValues[0]) {
+//                    CarSensorEvent.IGNITION_STATE_ACC -> ignition = "IGNITION_STATE_ACC"
+//                    CarSensorEvent.IGNITION_STATE_LOCK -> ignition = "IGNITION_STATE_LOCK"
+//                    CarSensorEvent.IGNITION_STATE_OFF -> ignition = "IGNITION_STATE_OFF"
+//                    CarSensorEvent.IGNITION_STATE_ON -> ignition = "IGNITION_STATE_ON"
+//                    CarSensorEvent.IGNITION_STATE_START -> ignition = "IGNITION_STATE_START"
+//                    CarSensorEvent.IGNITION_STATE_UNDEFINED -> ignition = "IGNITION_STATE_UNDEFINED"
+//                    else -> { // Note the block
+//                        ignition = "Gear not implemented"
+//                    }
+//                }
+//                IgnitionTextView.text = "Ignition Mode: " + ignition
+//                Log.i("igniton: ", ignition)
+//            },
+//            CarSensorManager.SENSOR_TYPE_IGNITION_STATE,
+//            CarSensorManager.SENSOR_RATE_NORMAL
+//
+//        )
+//
+//
+//    }
 
     private fun watchParkingBreak(sensorManager: CarSensorManager) {
         sensorManager.registerListener(
