@@ -10,4 +10,9 @@
     <string name="battery">Battery:</string>
     <string name="charge_rate">Charge rate:</string>
     <string name="ignition">Ignition:</string>
+
+
+    <string name="automotive_main_font">sans-serif</string>
+    <string name="automotive_sub_font">roboto_medium</string>
+
 </resources>

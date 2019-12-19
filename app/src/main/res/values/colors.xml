@@ -8,7 +8,8 @@
 
 
     <!--- app colors -->
-    <color name="backGroundMain">#000000</color>
+    <color name="backGroundMain">#111111</color>
+    <color name="labelBGColor">#2E3134</color>
     <color name="textLeftColor">#FFFFFF</color>
     <color name="textRightColor">#FFFFFF</color>
     <color name="textHeaderColor">#BDBDBD</color>

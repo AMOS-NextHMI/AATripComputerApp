@@ -137,7 +137,7 @@ class MainActivity : Activity() {
                 val chargeRate = carSensorEvent.floatValues[0]
 
                 Log.i("chargeRate", chargeRate.toString() + " mW")
-                chargeRateTextView.text = "BatteryLevel: " + chargeRate.toString() + "mW"
+                chargeRateTextView.text = (chargeRate.toString() + "mW")
 
             },
             CarSensorManager.SENSOR_TYPE_EV_BATTERY_CHARGE_RATE,
@@ -159,7 +159,7 @@ class MainActivity : Activity() {
 
 
                 Log.i("battery level ",  batteryLevelInWH.toString() + "WH")
-                BatteryLevelTextView.text = "BatteryLevel: " + batteryLevelInWH.toString() + "Wh"
+                BatteryLevelTextView.text = batteryLevelInWH.toString() + "Wh"
 
 
             },
@@ -192,7 +192,7 @@ class MainActivity : Activity() {
                         ignition = "Gear not implemented"
                     }
                 }
-                IgnitionTextView.text = "Ignition Mode: " + ignition
+                IgnitionTextView.text = ignition
                 Log.i("igniton: ", ignition )
             },
             CarSensorManager.SENSOR_TYPE_IGNITION_STATE,
@@ -236,7 +236,7 @@ class MainActivity : Activity() {
             { carSensorEvent ->
 
                 var fuelTextView = findViewById<TextView>(R.id.FuelTextView  )
-                var fuel = carSensorEvent.floatValues[0].toString() + "milliliters"
+                var fuel = carSensorEvent.floatValues[0].toString() + " ml"
 
 
 
@@ -262,10 +262,10 @@ class MainActivity : Activity() {
             var gear = ""
 
             when (carSensorEvent.intValues[0]) {
-                CarSensorEvent.GEAR_DRIVE -> gear = "Gear: D"
-                CarSensorEvent.GEAR_NEUTRAL -> gear = "Gear: N"
-                CarSensorEvent.GEAR_REVERSE -> gear = "Gear: R"
-                CarSensorEvent.GEAR_PARK -> gear = "Gear: P"
+                CarSensorEvent.GEAR_DRIVE -> gear = "D"
+                CarSensorEvent.GEAR_NEUTRAL -> gear = "N"
+                CarSensorEvent.GEAR_REVERSE -> gear = "R"
+                CarSensorEvent.GEAR_PARK -> gear = "P"
                 else -> { // Note the block
                     gear = "Gear not implemented"
                 }
@@ -316,7 +316,7 @@ class MainActivity : Activity() {
                 println(carSensorEvent.toString())
                 var engineOilTextView = findViewById<TextView>(R.id.engineOilTextView)
 
-                engineOilTextView.text = "Engine Oil Level: " + carSensorEvent.toString();
+                engineOilTextView.text = carSensorEvent.toString();
 
 
 

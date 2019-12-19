@@ -46,6 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@string/automotive_main_font"
                     android:text="@string/car_sensor_data"
                     android:textColor="@color/textHeaderColor"
                     android:textSize="36sp" />
@@ -67,11 +68,12 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:text="@string/speed"
+                        android:fontFamily="@string/automotive_main_font"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textLeftColor"
-                        android:textSize="28sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="28sp" />
+                        <!--- android:textStyle="bold|italic" /> -->
 
                     <TextView
                         android:id="@+id/speedTextView"
@@ -81,12 +83,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="20dp"
+                        android:fontFamily="@string/automotive_sub_font"
                         android:gravity="right"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textRightColor"
-                        android:textSize="24sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="24sp" />
+                        <!--- android:textStyle="bold|italic" /> -->
                 </LinearLayout>
 
                 <!--- end of Velocity -->
@@ -104,6 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:fontFamily="@string/automotive_main_font"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
@@ -111,8 +115,8 @@
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textLeftColor"
-                        android:textSize="28sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="28sp" />
+                        <!-- android:textStyle="bold|italic" /> -->
 
                     <TextView
                         android:id="@+id/gearTextView"
@@ -122,12 +126,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="20dp"
+                        android:fontFamily="@string/automotive_sub_font"
                         android:gravity="right"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textRightColor"
-                        android:textSize="24sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="24sp" />
+                        <!-- android:textStyle="bold|italic" /> -->
                 </LinearLayout>
 
                 <!--- end of gear -->
@@ -150,11 +155,12 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:text="@string/parking_break"
+                        android:fontFamily="@string/automotive_main_font"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textLeftColor"
-                        android:textSize="28sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="28sp" />
+                        <!-- android:textStyle="bold|italic" /> -->
 
                     <TextView
                         android:id="@+id/ParkingBreakTextView"
@@ -164,12 +170,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="20dp"
+                        android:fontFamily="@string/automotive_sub_font"
                         android:gravity="right"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textRightColor"
-                        android:textSize="24sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="24sp" />
+                        <!-- android:textStyle="bold|italic" /> -->
                 </LinearLayout>
 
                 <!--- end of parking break -->
@@ -188,7 +195,6 @@
 
 
 
-
     <!--- start of currTripContainer -->
 
     <LinearLayout
@@ -200,11 +206,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="0.2">
+
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="fill_parent"
@@ -223,14 +232,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/your_current_trip"
+                    android:fontFamily="@string/automotive_main_font"
                     android:textColor="@color/textHeaderColor"
                     android:textSize="36sp" />
 
 
 
                 <!--- start of fuel level -->
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -244,12 +252,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:fontFamily="@string/automotive_main_font"
                         android:text="@string/fuel"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textLeftColor"
-                        android:textSize="28sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="28sp" />
+                        <!--- android:textStyle="bold|italic" /> -->
 
                     <TextView
                         android:id="@+id/FuelTextView"
@@ -259,12 +268,12 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="20dp"
+                        android:fontFamily="@string/automotive_sub_font"
                         android:gravity="right"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textRightColor"
-                        android:textSize="24sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="24sp" />
                 </LinearLayout>
                 <!--- end of fuel level -->
 
@@ -273,7 +282,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/ignitionStaticTextView"
@@ -284,11 +294,12 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:text="@string/ignition"
+                        android:fontFamily="@string/automotive_main_font"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textLeftColor"
-                        android:textSize="28sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="28sp" />
+                        <!--- android:textStyle="bold|italic" /> -->
 
                     <TextView
                         android:id="@+id/IgnitionTextView"
@@ -298,16 +309,16 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="20dp"
+                        android:fontFamily="@string/automotive_sub_font"
                         android:gravity="right"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textRightColor"
-                        android:textSize="24sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="24sp" />
+                        <!--- android:textStyle="bold|italic" /> -->
                 </LinearLayout>
 
                 <!--- end of ignition -->
-
 
                 <!--- start of battery level -->
 
@@ -326,10 +337,11 @@
                         android:layout_marginRight="20dp"
                         android:text="@string/battery"
                         android:textAllCaps="true"
+                        android:fontFamily="@string/automotive_main_font"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textLeftColor"
-                        android:textSize="28sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="28sp" />
+                        <!--- android:textStyle="bold|italic" /> -->
 
                     <TextView
                         android:id="@+id/BatteryLevelTextView"
@@ -341,10 +353,11 @@
                         android:layout_marginRight="20dp"
                         android:gravity="right"
                         android:textAllCaps="true"
+                        android:fontFamily="@string/automotive_sub_font"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textRightColor"
-                        android:textSize="24sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="24sp" />
+                        <!--- android:textStyle="bold|italic" /> -->
                 </LinearLayout>
                 <!--- end of battery level -->
             </LinearLayout>
@@ -379,6 +392,7 @@
             android:layout_gravity="center"
             android:text="@string/car_health"
             android:textColor="@color/textHeaderColor"
+            android:fontFamily="@string/automotive_main_font"
             android:textSize="36sp" />
 
 
@@ -412,11 +426,13 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:text="@string/charge_rate"
+                        android:fontFamily="@string/automotive_main_font"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textLeftColor"
-                        android:textSize="28sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="28sp" />
+                        <!--- android:textStyle="bold|italic" /> -->
+
 
                     <TextView
                         android:id="@+id/chargeRateTextView"
@@ -426,12 +442,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="20dp"
+                        android:fontFamily="@string/automotive_sub_font"
                         android:gravity="right"
                         android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/textRightColor"
-                        android:textSize="24sp"
-                        android:textStyle="bold|italic" />
+                        android:textSize="24sp" />
+                        <!--- android:textStyle="bold|italic" /> -->
                 </LinearLayout>
             </RelativeLayout>
 
