@@ -87,7 +87,7 @@ class MainActivity : Activity() {
         watchSpeedSensor(sensorManager)
         watchGearSensor(sensorManager)
         watchParkingBreak(sensorManager)
-        watchIgnitionState(sensorManager)
+//        watchIgnitionState(sensorManager) // error problems
         watchFuelLevel(sensorManager)
         watchChargingRate(sensorManager)
         watchBatteryLevel(sensorManager)
@@ -219,7 +219,7 @@ class MainActivity : Activity() {
                 }
 
 
-                parkingBreakTextView.text = "parkingBreak: " + parkingBreak
+                parkingBreakTextView.text = parkingBreak
                 Log.i("break", parkingBreak)
 
             },
@@ -298,7 +298,7 @@ class MainActivity : Activity() {
             { carSensorEvent ->
 
                 var speedTextView = findViewById<TextView>(R.id.speedTextView)
-                speedTextView.text = "Speed: " + carSensorEvent.floatValues[0].toString() + "km/h"
+                speedTextView.text = (("%.2f".format(carSensorEvent.floatValues[0] * 3.6)).toString() + "km/h")
 
 
 

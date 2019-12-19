@@ -6,4 +6,10 @@
     <color name="black">#000000</color>
     <color name="white">#111111</color>
 
+
+    <!--- app colors -->
+    <color name="backGroundMain">#000000</color>
+    <color name="textLeftColor">#FFFFFF</color>
+    <color name="textRightColor">#FFFFFF</color>
+    <color name="textHeaderColor">#BDBDBD</color>
 </resources>

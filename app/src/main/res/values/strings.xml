@@ -3,4 +3,11 @@
     <string name="car_health">Car Health</string>
     <string name="car_sensor_data">Car Sensor Data</string>
     <string name="your_current_trip">Your Current Trip</string>
+    <string name="speed">Speed:</string>
+    <string name="gear">Gear:</string>
+    <string name="parking_break">Parking break:</string>
+    <string name="fuel">Fuel:</string>
+    <string name="battery">Battery:</string>
+    <string name="charge_rate">Charge rate:</string>
+    <string name="ignition">Ignition:</string>
 </resources>
